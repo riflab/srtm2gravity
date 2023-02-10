@@ -11,6 +11,10 @@ def parse_url(url):
 
     return list
 
+def download_file(url, path):
+    response = requests.get(url)
+    open(path, "wb").write(response.content)
+
 def main(url):
     
     pages_1 = parse_url(url)[-2:]
@@ -29,7 +33,10 @@ def main(url):
 
             for k in pages_3[5:]:
                 url_3 = url_2 + k
-                print(' >>> ' + url_3)
+                # print(' >>> ' + url_3)
+                path = 'data/' + i + k
+                print(path)
+                download_file(url_3, path)
 
 if __name__ == '__main__':
     # headers, cookies = hd()
