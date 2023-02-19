@@ -15,10 +15,10 @@ def download_file(url, path):
     response = requests.get(url)
     open(path, "wb").write(response.content)
 
-def main(url):
+def main(url, path_f=None):
     
     pages_1 = parse_url(url)[-2:]
-    
+    l = 1
     for i in pages_1:
         url_1 = url + i
         print(' > ' + url_1)
@@ -34,12 +34,18 @@ def main(url):
             for k in pages_3[5:]:
                 url_3 = url_2 + k
                 # print(' >>> ' + url_3)
-                path = 'data/' + i + k
-                print(path)
-                download_file(url_3, path)
+                path_f.write(str(l) + ' ' + url_3 + '\n')
+                path = '../data/' + i + k
+                # print(l, path)
+
+                # if l > 77060: #77608
+                # print(l, path)
+                    # download_file(url_3, path)
+
+                l+=1
 
 if __name__ == '__main__':
-    # headers, cookies = hd()
+    
     url = 'https://ddfe.blazejbucha.com/models/SRTM2gravity2018/data/'
-
-    main(url)
+    path = open('log.txt', 'w')
+    main(url, path)
